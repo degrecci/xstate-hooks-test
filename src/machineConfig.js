@@ -10,10 +10,27 @@ const machineConfig = {
       on: {
         ENTER_EMAIL: {},
         ENTER_PASSWORD: {},
-        EMAIL_BLUR: {},
-        SUBMIT: {
-          target: 'awaitingResponse',
+        EMAIL_BLUR: {
+          cond: 'isBadEmailFormat',
+          target: 'emailErr.badFormat'
         },
+        PASSWORD_BLUR: {
+          cond: 'isPasswordShort',
+          target: 'passwordErr.tooShort'
+        },
+        SUBMIT: [
+          {
+            cond: 'isBadEmailFormat',
+            target: 'emailErr.badFormat'
+          },
+          {
+            cond: 'isPasswordShort',
+            target: 'passwordErr.tooShort',
+          },
+          {
+          target: 'awaitingResponse',
+          }
+        ],
       },
     },
     awaitingResponse: {},
