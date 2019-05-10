@@ -91,10 +91,96 @@ class SignIn extends Component {
                   e.preventDefault();
                   service.send({type: 'SUBMIT'})
                 }}
+                noValidate
               >
-                <H1></H1>
-              </Form>
-            )
+                <H1 fade={fadeHeading}>Welcome Back</H1>
+
+                <Label
+                  htmlFor="email"
+                  disabled={disableEmail}
+                >
+                  email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="charlie@gmail.com"
+                  onBlur={() => {
+                    service.send({ type: 'EMAIL_BLUR' });
+                  }}
+                  value={state.context.email}
+                  err={state.matches('emailErr')}
+                  disabled={disableEmail}
+                  onChange={e => {
+                    service.send({
+                      type: 'ENTER_EMAIL',
+                      value: e.target.value
+                    });
+                  }}
+                  ref={this.emailinputRef}
+                  autoFocus
+                />
+                <ErrMsg>
+                  {state.matches({ emailErr: 'badFormat'}) && "email format doesn't look right"}
+                  {state.matches({ emailErr: 'noAccount'}) && "no account linked with this email"}
+                </ErrMsg>
+
+                <Label htmlFor="password" disabled={disablePassword}>
+                  password <Recede>(min. 6 characters)</Recede>
+                 </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Passw0rd!"
+                  value={state.context.password}
+                  err={state.matches('passwordErr')}
+                  disabled={disablePassword}
+                  onBlur={() => {
+                    service.send({ type: 'PASSWORD_BLUR' })
+                  }}
+                  onChange={e => {
+                    service.send({
+                      type: 'ENTER_PASSWORD',
+                      value: e.target.value
+                    })
+                  }}
+                  ref={this.passwordInputRef}
+                />
+                <ErrMsg>
+              {state.matches({ passwordErr: 'tooShort' }) &&
+                'password too short (min. 6 characters)'}
+              {state.matches({ passwordErr: 'incorrect' }) &&
+                'incorrect password'}
+            </ErrMsg>
+
+            <Button
+              type="submit"
+              disabled={disableSubmit}
+              loading={state.matches('awaitingResponse')}
+              ref={this.submitBtnRef}
+            >
+              {state.matches('awaitingResponse') && (
+                <>
+                  loading
+                </>
+              )}
+              {state.matches('serviceErr') && 'retry'}
+              {!state.matches('awaitingResponse') &&
+                !state.matches('serviceErr') &&
+                'sign in'
+              }
+            </Button>
+            <ErrMsg>
+              {state.matches('serviceErr') && 'problem contacting server'}
+            </ErrMsg>
+
+            {state.matches('signedIn') && (
+              <Authenticated>
+                <H1>authenticated</H1>
+              </Authenticated>
+            )}
+          </Form>
+        )
         }}
       </Machine>
     )
