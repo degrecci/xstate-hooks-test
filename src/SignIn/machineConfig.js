@@ -8,8 +8,12 @@ const machineConfig = {
   states: {
     dataEntry: {
       on: {
-        ENTER_EMAIL: {},
-        ENTER_PASSWORD: {},
+        ENTER_EMAIL: {
+          actions: 'cacheEmail'
+        },
+        ENTER_PASSWORD: {
+          actions: 'cachePassword'
+        },
         EMAIL_BLUR: {
           cond: 'isBadEmailFormat',
           target: 'emailErr.badFormat'
@@ -28,44 +32,75 @@ const machineConfig = {
             target: 'passwordErr.tooShort',
           },
           {
-          target: 'awaitingResponse',
+            target: 'awaitingResponse',
           }
-        ],
-      },
+        ]
+      }
     },
-    awaitingResponse: {},
+    awaitingResponse: {
+      invoke: {
+        src: 'requestSignIn',
+        onDone: {
+          target: 'signedIn'
+        },
+        onError: [
+          {
+            cond: 'isNoAccount',
+            target: 'emailErr.noAccount'
+          },
+          {
+            cond: 'isIncorrectPassword',
+            target: 'passwordErr.incorrect'
+          },
+          {
+            cond: 'isServiceErr',
+            target: 'serviceErr'
+          }
+        ]
+      }
+    },
     emailErr: {
+      onEntry: 'focusEmailInput',
       on: {
         ENTER_EMAIL: {
           target: 'dataEntry',
+          actions: 'cacheEmail',
         },
       },
       initial: 'badFormat',
       states: {
         badFormat: {},
         noAccount: {},
-      },
+      }
     },
     passwordErr: {
+      onEntry: 'focusPasswordInput',
       on: {
         ENTER_PASSWORD: {
           target: 'dataEntry',
-        },
+          actions: 'cachePassword'
+        }
       },
       initial: 'tooShort',
       states: {
         tooShort: {},
-        incorrect: {},
+        incorrect: {}
       }
     },
     serviceErr: {
+      onEntry: 'focusSubmitBtn',
       on: {
         SUBMIT: {
-          target: 'awaitingResponse',
-        },
-      },
+          target: 'awaitingResponse'
+        }
+      }
     },
-    signedIn: {},
+    signedIn: {
+      type: 'final'
+    }
+  },
+  onDone: {
+    actions: 'onAuthentication'
   }
 }
 
