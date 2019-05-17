@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useMachine } from './useMachine';
+import { useMachine } from '../useMachine';
 import { toggleMachine } from './toggleMachine'
 
 export default function Toggle() {
