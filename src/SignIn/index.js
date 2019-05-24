@@ -18,7 +18,7 @@ import {
   Authenticated,
   MetaWrapper,
   Pre
-} from './styles'
+} from '../styles'
 
 const delay = func => setTimeout(() => func());
 

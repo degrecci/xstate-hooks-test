@@ -9,6 +9,24 @@ export const Form = styled('form')`
   flex-direction: column;
 `
 
+export const Cards = styled('div')`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+`
+
+export const Toggle = styled('input')`
+`
+
+export const Card = styled('div')`
+  flex-direction: row;
+  margin: 25px;
+  padding: 25px;
+  border: 1px solid black;
+  border-radius: 3px;
+`
+
 export const H1 = styled('h1')`
   margin-bottom: 2rem;
 

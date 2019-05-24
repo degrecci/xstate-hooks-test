@@ -1,3 +1,5 @@
+import { assign } from 'xstate/lib/actions';
+
 const changeIntervalToYearly = assign({
   interval: 'yearly'
 });
@@ -6,7 +8,7 @@ const changeIntervalToMonthly = assign({
   interval: 'monthly'
 });
 
-const checkInMachine = {
+export const checkInMachine = {
   id: 'checkin',
   initial: 'loading',
   context: { interval: 'yearly' },
@@ -58,7 +60,7 @@ const checkInMachine = {
   }
 }
 
-const sideEffects = {
+export const sideEffects = {
   actions: {
     changeIntervalToYearly,
     changeIntervalToMonthly,
