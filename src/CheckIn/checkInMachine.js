@@ -15,19 +15,19 @@ export const checkInMachine = {
   states: {
     loading: {
       after: {
-        1000: 'plans.yearly',
+        1000: 'plans',
       },
       on: {
-        RESOLVE: 'plans.yearly',
+        RESOLVE: 'plans',
         REJECT: 'loading',
       }
     },
     plans: {
+      initial: 'yearly',
       on: {
         SELECT: 'confirmPlan',
       },
       states: {
-        initial: 'yearly',
         yearly: {
           onEntry: 'changeIntervalToYearly',
           on: {
@@ -45,13 +45,13 @@ export const checkInMachine = {
     confirmPlan: {
       on: {
         CLOSE_PLAN: 'closePlan',
-        CANCEL: 'plans.yearly'
+        CANCEL: 'plans'
       }
     },
     closePlan: {
       on: {
         RESOLVE: 'billing',
-        REJECT: 'plans.yearly',
+        REJECT: 'plans',
       }
     },
     billing: {
@@ -65,7 +65,4 @@ export const sideEffects = {
     changeIntervalToYearly,
     changeIntervalToMonthly,
   },
-  guards: {
-    chosedInterval: (context => context.interval === 'yearly' ? 'plans.yearly' : 'plans.montlhy')
-  }
 };
