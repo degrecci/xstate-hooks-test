@@ -46,7 +46,7 @@ const CheckIn = () => {
       {state.matches('confirmPlan') && (
         <Card>
           <H1>Confirme seu plano</H1>
-          {context.interval}
+          <p>{context.interval}</p>
           <Button onClick={() => send('CANCEL')}>Cancelar</Button>
           <Button onClick={() => send('CLOSE_PLAN')}>Confirmar</Button>
         </Card>
@@ -59,7 +59,7 @@ const CheckIn = () => {
       {state.matches('billing') &&
         <Card>
           <H1>Billing Page</H1>
-          {context.interval}
+          <p>{context.interval}</p>
           <Button>Back to Plans</Button>
         </Card>
       }
