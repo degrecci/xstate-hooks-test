@@ -74,6 +74,6 @@ export const sideEffects = {
     changeIntervalToMonthly,
   },
   guards: {
-    isYearly: context => context.interval === 'yearly',
+    isYearly: (context) => context.interval === 'yearly',
   },
 };
