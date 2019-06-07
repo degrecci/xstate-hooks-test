@@ -27,8 +27,9 @@ const CheckIn = () => {
       {state.matches('loading') && `Loading`}
       {state.matches('plans') && (
         <>
-          <Toggle type="checkbox" onClick={() => send('TOGGLE')}/>
-          {` ${context.interval}`}
+          <Button type="checkbox" onClick={() => send('TOGGLE')}>
+          {context.interval}
+          </Button>
 
           <Cards>
             <Card>
@@ -44,19 +45,22 @@ const CheckIn = () => {
       )}
       {state.matches('confirmPlan') && (
         <Card>
-          <H1>Confirm your plan</H1>
+          <H1>Confirme seu plano</H1>
+          {context.interval}
           <Button onClick={() => send('CANCEL')}>Cancelar</Button>
           <Button onClick={() => send('CLOSE_PLAN')}>Confirmar</Button>
         </Card>
       )}
       {state.matches('closePlan') &&
         <Card>
-          <H1>Confirmando Plano</H1>
+          <H1>Confirmando Plano {context.interval}</H1>
         </Card>
       }
       {state.matches('billing') &&
         <Card>
           <H1>Billing Page</H1>
+          {context.interval}
+          <Button>Back to Plans</Button>
         </Card>
       }
     </div>
