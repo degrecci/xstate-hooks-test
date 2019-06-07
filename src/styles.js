@@ -16,9 +16,6 @@ export const Cards = styled('div')`
   padding: 20px;
 `
 
-export const Toggle = styled('input')`
-`
-
 export const Card = styled('div')`
   flex-direction: row;
   margin: 25px;
