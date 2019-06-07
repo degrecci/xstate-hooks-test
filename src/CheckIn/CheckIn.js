@@ -60,7 +60,6 @@ const CheckIn = () => {
         <Card>
           <H1>Billing Page</H1>
           <p>{context.interval}</p>
-          <Button>Back to Plans</Button>
         </Card>
       }
     </div>
