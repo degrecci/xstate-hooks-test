@@ -39,6 +39,21 @@ export const H1 = styled('h1')`
     `}
 `
 
+export const H2 = styled('h1')`
+  margin-bottom: 2rem;
+
+  font-size: 2rem;
+  font-weight: 100;
+  text-align: center;
+  text-transform: capitalize;
+
+  ${({ fade }) =>
+    fade &&
+    css`
+      opacity: var(--opacity-disabled);
+    `}
+`
+
 export const Label = styled('label')`
   margin-bottom: 0.5rem;
 

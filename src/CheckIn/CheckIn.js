@@ -6,6 +6,7 @@ import {
   Cards,
   Card,
   H1,
+  H2,
   Button,
 } from '../styles'
 
@@ -33,10 +34,14 @@ const CheckIn = () => {
           <Cards>
             <Card>
               <H1>Plano 1</H1>
+              {context.interval === 'yearly' && <H2>$15</H2>}
+              {context.interval === 'monthly' && <H2>$19</H2>}
               <Button onClick={confirmPlan}>Contratar</Button>
             </Card>
             <Card>
               <H1>Plano 2</H1>
+              {context.interval === 'yearly' && <H2>$35</H2>}
+              {context.interval === 'monthly' && <H2>$39</H2>}
               <Button onClick={confirmPlan}>Contratar</Button>
             </Card>
           </Cards>
@@ -45,7 +50,7 @@ const CheckIn = () => {
       {state.matches('confirmPlan') && (
         <Card>
           <H1>Confirme seu plano</H1>
-          <p>{context.interval}</p>
+          <H2>{context.interval}</H2>
           <Button onClick={() => send('CANCEL')}>Cancelar</Button>
           <Button onClick={() => send('CLOSE_PLAN')}>Confirmar</Button>
         </Card>
@@ -58,7 +63,7 @@ const CheckIn = () => {
       {state.matches('billing') &&
         <Card>
           <H1>Billing Page</H1>
-          <p>{context.interval}</p>
+          <H2>{context.interval}</H2>
         </Card>
       }
     </div>
