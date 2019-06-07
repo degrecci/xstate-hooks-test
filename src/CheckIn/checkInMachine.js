@@ -45,7 +45,15 @@ export const checkInMachine = {
     confirmPlan: {
       on: {
         CLOSE_PLAN: 'closePlan',
-        CANCEL: 'plans'
+        CANCEL: [
+          {
+            target: 'plans.yearly',
+            cond: 'isYearly',
+          },
+          {
+            target: 'plans.monthly',
+          }
+        ]
       }
     },
     closePlan: {
@@ -64,5 +72,8 @@ export const sideEffects = {
   actions: {
     changeIntervalToYearly,
     changeIntervalToMonthly,
+  },
+  guards: {
+    isYearly: context => context.interval === 'yearly',
   },
 };
