@@ -1,4 +1,5 @@
 import { assign } from 'xstate/lib/actions';
+import { Machine } from 'xstate';
 
 const changeIntervalToYearly = assign({
   interval: 'yearly'
@@ -77,3 +78,5 @@ export const sideEffects = {
     isYearly: (context) => context.interval === 'yearly',
   },
 };
+
+export default Machine(checkInMachine, sideEffects)

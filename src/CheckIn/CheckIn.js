@@ -1,6 +1,6 @@
 import React from 'react'
-import { useMachine } from 'use-machine';
-import { checkInMachine, sideEffects } from './checkInMachine';
+import { useMachine } from '@xstate/react';
+import checkInMachine from './checkInMachine';
 
 import {
   Cards,
@@ -13,17 +13,18 @@ import {
 import Match from './Match';
 
 const CheckIn = () => {
-  const { send, state, context } = useMachine(checkInMachine, sideEffects);
+  const [current, send] = useMachine(checkInMachine);
 
   const confirmPlan = () => send('SELECT');
 
   const resolvePlanConfirmation = () => new Promise((resolve) => setTimeout(resolve, 500));
 
-  state.matches('closePlan') &&
+  current.matches('closePlan') &&
     resolvePlanConfirmation()
       .then(() => send('RESOLVE'))
       .catch(() => send('REJECT'))
 
+  const { context } = current;
   return (
     <div>
       <Match state="loading">
